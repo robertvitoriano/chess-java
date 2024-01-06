@@ -23,7 +23,7 @@ public class ChessPosition {
         this.row = row;
     }
 
-    protected Position toPostion(){
+    protected Position toPosition(){
         return new Position(this.column - 'a', Math.abs(this.row - 8));
     }
 

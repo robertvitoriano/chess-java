@@ -23,7 +23,11 @@ public class Program {
                 System.out.print("Source: ");
 
                 ChessPosition sourcePosition = UI.readChessPosition(scanner);
-
+                
+                boolean[][] possibleMoves = chessMatch.possibleMoves(sourcePosition);
+                UI.clearConsole();
+                UI.printBoard(chessMatch.getPieces(), possibleMoves);
+                
                 System.out.println();
                 System.out.print("Target: ");
 
