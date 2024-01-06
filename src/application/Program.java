@@ -13,6 +13,7 @@ public class Program {
         Scanner scanner = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
         while(true){
+            UI.clearConsole();
             UI.printBoard(chessMatch.getPieces());
 
             System.out.println();

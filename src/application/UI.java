@@ -60,4 +60,20 @@ public class UI {
             }
         }
     }
+    public static void clearConsole() {
+        try {
+            // For Windows
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            // For Unix/Linux/Mac
+            else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+
+            }
+        } catch (Exception e) {
+            // Handle exceptions as needed
+            e.printStackTrace();
+        }
+    }
 }
