@@ -17,11 +17,8 @@ public class Program {
         ChessMatch chessMatch = ChessMatch.getInsantance();
         while(true){
             try{
-              //  UI.clearConsole();
-
-                System.out.println("Current turn: " + chessMatch.getTurn());
-                String currentPlayer = chessMatch.getCurrentPlayer() == Color.WHITE ? "White": "Black";
-                System.out.println("Player: "+currentPlayer);
+                UI.clearConsole();
+                UI.printMatch(chessMatch);
                 System.out.println();
 
                 UI.printBoard(chessMatch.getPieces());

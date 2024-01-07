@@ -1,5 +1,6 @@
 package application;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -92,7 +93,11 @@ public class UI {
             e.printStackTrace();
         }
     }
-    
+    public static void printMatch(ChessMatch chessMatch){
+        System.out.println("Current turn: " + chessMatch.getTurn());
+        String currentPlayer = chessMatch.getCurrentPlayer() == Color.WHITE ? "White": "Black";
+        System.out.println("Player: "+currentPlayer);
+    }
     private static void printPossibleMoves(boolean[][] possibleMoves){
         for (int i = 0; i < possibleMoves.length; i++) {
             System.out.print((8 - i) + " ");
