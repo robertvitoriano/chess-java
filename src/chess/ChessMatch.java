@@ -9,12 +9,19 @@ public class ChessMatch {
     private Board board;
     private Color currentPlayer;
     private int turn;
+    private static ChessMatch instance = null;
 
-    public ChessMatch(){
+    private ChessMatch(){
         this.board = new Board(8, 8);
         this.initialSetup();
     }
 
+    public static ChessMatch getInsantance(){
+        if(instance == null){
+            return new ChessMatch();
+        }
+        return instance;
+    }
     /**
      * @return the currentPlayer
      */

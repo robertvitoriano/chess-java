@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ChessMatch chessMatch = new ChessMatch();
+        ChessMatch chessMatch = ChessMatch.getInsantance();
         while(true){
             try{
                 UI.clearConsole();
