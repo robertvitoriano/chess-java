@@ -17,7 +17,7 @@ public class Program {
         ChessMatch chessMatch = ChessMatch.getInsantance();
         while(true){
             try{
-                UI.clearConsole();
+              //  UI.clearConsole();
 
                 System.out.println("Current turn: " + chessMatch.getTurn());
                 String currentPlayer = chessMatch.getCurrentPlayer() == Color.WHITE ? "White": "Black";
@@ -33,7 +33,7 @@ public class Program {
                 chessMatch.validateSourcePosition(sourcePosition.toPosition());
 
                 boolean[][] possibleMoves = chessMatch.possibleMoves(sourcePosition);
-                UI.clearConsole();
+             //   UI.clearConsole();
                 UI.printBoard(chessMatch.getPieces(), possibleMoves);
                 
                 System.out.println();

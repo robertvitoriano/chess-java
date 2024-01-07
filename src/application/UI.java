@@ -59,6 +59,7 @@ public class UI {
             System.out.println();
         }
         System.out.println("  a b c d e f g h");
+        printPossibleMoves(possibleMoves);
     }
 
     private static void printPiece(ChessPiece piece, boolean possibleMove) {
@@ -91,5 +92,20 @@ public class UI {
             // Handle exceptions as needed
             e.printStackTrace();
         }
+    }
+    
+    private static void printPossibleMoves(boolean[][] possibleMoves){
+        for (int i = 0; i < possibleMoves.length; i++) {
+            System.out.print((8 - i) + " ");
+            for (int j = 0; j < possibleMoves.length; j++) {
+                if(possibleMoves[i][j]){
+                    System.out.print(" T ");
+                } else{
+                    System.out.print(" F ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
     }
 }
