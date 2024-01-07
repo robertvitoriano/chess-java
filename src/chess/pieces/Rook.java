@@ -56,7 +56,7 @@ public class Rook extends ChessPiece {
 			possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
 			positionVerifier.setRow(positionVerifier.getRow() + 1);
 		}
-		if (getBoard().positionExists(positionVerifier) && isThereOpponentPiece(positionVerifier)) {
+		if (this.getBoard().thereIsAPiece(positionVerifier) && isThereOpponentPiece(positionVerifier)) {
 			possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
 		}
 		
