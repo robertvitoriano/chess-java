@@ -16,9 +16,8 @@ public class King  extends ChessPiece {
     }
     
     private boolean canMove(Position position){
-        ChessPiece chessPiece = (ChessPiece) getBoard().piece(position);
-        return chessPiece != null && chessPiece.getColor() != this.getColor();
-    }
+        return this.isThereOpponentPiece(position) || !this.getBoard().thereIsAPiece(position);
+        }
 
     @Override
     public boolean[][] possibleMoves() {
@@ -29,18 +28,16 @@ public class King  extends ChessPiece {
         positionVerifier.setRow(this.position.getRow() - 1);
         positionVerifier.setColumn(this.position.getColumn());
         System.out.println("Row initial position " +!this.getBoard().thereIsAPiece(positionVerifier));
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
-         if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+
          
          //bottom
         positionVerifier.setRow(this.position.getRow() + 1);
         positionVerifier.setColumn(this.position.getColumn());		
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
@@ -48,7 +45,7 @@ public class King  extends ChessPiece {
          positionVerifier.setRow(this.position.getRow());
          positionVerifier.setColumn(this.position.getColumn() + 1);
          
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
@@ -56,7 +53,7 @@ public class King  extends ChessPiece {
          positionVerifier.setRow(this.position.getRow());
          positionVerifier.setColumn(this.position.getColumn() - 1);
          
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
@@ -64,7 +61,7 @@ public class King  extends ChessPiece {
          positionVerifier.setColumn(this.position.getColumn() - 1);
          positionVerifier.setRow(this.position.getRow() - 1);
          
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
@@ -72,7 +69,7 @@ public class King  extends ChessPiece {
          positionVerifier.setColumn(this.position.getColumn() + 1);
          positionVerifier.setRow(this.position.getRow() - 1);
          
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
@@ -80,7 +77,7 @@ public class King  extends ChessPiece {
          positionVerifier.setColumn(this.position.getColumn() - 1);
          positionVerifier.setRow(this.position.getRow() + 1);
          
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
@@ -88,7 +85,7 @@ public class King  extends ChessPiece {
         positionVerifier.setColumn(this.position.getColumn() + 1);
         positionVerifier.setRow(this.position.getRow() + 1);
          
-        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
