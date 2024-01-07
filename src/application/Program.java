@@ -30,14 +30,18 @@ public class Program {
                 chessMatch.validateSourcePosition(sourcePosition.toPosition());
 
                 boolean[][] possibleMoves = chessMatch.possibleMoves(sourcePosition);
-             //   UI.clearConsole();
+                
+                UI.clearConsole();
+                
                 UI.printBoard(chessMatch.getPieces(), possibleMoves);
                 
                 System.out.println();
                 System.out.print("Target: ");
 
                 ChessPosition targetPosition = UI.readChessPosition(scanner);
+                
                 ChessPiece capturedPiece = chessMatch.performChessMove(sourcePosition, targetPosition);
+                
             }catch (ChessException e){
                 System.out.print(e.getMessage());
                 scanner.nextLine();
