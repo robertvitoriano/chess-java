@@ -59,7 +59,6 @@ public class UI {
             System.out.println();
         }
         System.out.println("  a b c d e f g h");
-        printPossibleMoves(possibleMoves);
     }
 
     private static void printPiece(ChessPiece piece, boolean possibleMove) {

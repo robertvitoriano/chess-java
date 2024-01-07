@@ -91,6 +91,7 @@ public class ChessMatch {
         if(this.currentPlayer != chessPiece.getColor() ){
             throw new ChessException("Is not your turn!");
         }
+        
         if(!board.thereIsAPiece(position)){
             throw new ChessException("There is no piece on the source position");
         }

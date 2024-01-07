@@ -1,6 +1,6 @@
 package boardgame;
 
-import application.UI;
+import chess.pieces.Pawn;
 
 public class Board {
 
@@ -46,6 +46,9 @@ public class Board {
         }
         this.pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
+        if(piece instanceof Pawn){
+            ((Pawn) piece).updatePawnMoves();
+        }
     }
 
     public Piece removePiece(Position position){

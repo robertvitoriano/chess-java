@@ -29,8 +29,7 @@ public class Pawn extends ChessPiece {
 
         positionVerifier.setRow(this.position.getRow() - 1);
         positionVerifier.setColumn(this.position.getColumn());
-        Boolean canMove = !this.getBoard().thereIsAPiece(positionVerifier)
-                || this.isThereOpponentPiece(positionVerifier);
+        Boolean canMove = !this.getBoard().thereIsAPiece(positionVerifier) || this.isThereOpponentPiece(positionVerifier);
                 if (this.pawnMoves > 1) {
             if (this.getBoard().positionExists(positionVerifier) && canMove) {
                 possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
@@ -39,16 +38,14 @@ public class Pawn extends ChessPiece {
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
             positionVerifier.setRow(positionVerifier.getRow() - 1);
             canMove = !this.getBoard().thereIsAPiece(positionVerifier) || this.isThereOpponentPiece(positionVerifier);
-            System.out.println("Can move for the second time ? "+ canMove); 
-            System.out.println("PositionExists ? "+this.getBoard().positionExists(positionVerifier));       
+    
             
             if (this.getBoard().positionExists(positionVerifier) && canMove) {
                 possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
             }
         }
-        updatePawnMoves();
-
         return possibleMovesMatrix;
         
     }
+    
 }
