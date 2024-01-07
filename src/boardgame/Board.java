@@ -28,14 +28,14 @@ public class Board {
 
     public Piece piece(int row, int column){
         if(!positionExists(row, column)){
-            throw new BoardException("Piece cannot be instantiated in this position");
+            return null;
         }
         return pieces[row][column];
     }
 
     public Piece piece(Position position){
         if(!positionExists(position)){
-            throw new BoardException("Piece cannot be instantiated in this position");
+            return null;
         }
         return pieces[position.getRow()][position.getColumn()];
     }

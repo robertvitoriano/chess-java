@@ -14,6 +14,11 @@ public class King  extends ChessPiece {
     public String toString(){
         return "♚ ";
     }
+    
+    private boolean canMove(Position position){
+        ChessPiece chessPiece = (ChessPiece) getBoard().piece(position);
+        return chessPiece != null && chessPiece.getColor() != this.getColor();
+    }
 
     @Override
     public boolean[][] possibleMoves() {
@@ -23,11 +28,10 @@ public class King  extends ChessPiece {
         //above
         positionVerifier.setRow(this.position.getRow() - 1);
         positionVerifier.setColumn(this.position.getColumn());
-        
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        System.out.println("Row initial position " +!this.getBoard().thereIsAPiece(positionVerifier));
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            positionVerifier.setRow(positionVerifier.getRow() - 1);
-         }
+        }
          
          if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
@@ -36,96 +40,57 @@ public class King  extends ChessPiece {
          //bottom
         positionVerifier.setRow(this.position.getRow() + 1);
         positionVerifier.setColumn(this.position.getColumn());		
-        while (getBoard().positionExists(positionVerifier) && !getBoard().thereIsAPiece(positionVerifier)) {
-			possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-			positionVerifier.setRow(positionVerifier.getRow() + 1);
-		}
-		if (this.getBoard().thereIsAPiece(positionVerifier) && isThereOpponentPiece(positionVerifier)) {
-			possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-		}
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
+        }
          
          //right
          positionVerifier.setRow(this.position.getRow());
          positionVerifier.setColumn(this.position.getColumn() + 1);
          
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            positionVerifier.setColumn(positionVerifier.getColumn() + 1);
-         }
-         
-         if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+        }
          
          //left
          positionVerifier.setRow(this.position.getRow());
          positionVerifier.setColumn(this.position.getColumn() - 1);
          
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            positionVerifier.setColumn(positionVerifier.getColumn() - 1);
-         }
-         
-        if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+        }
          
          // diagonal up left
          positionVerifier.setColumn(this.position.getColumn() - 1);
          positionVerifier.setRow(this.position.getRow() - 1);
          
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            positionVerifier.setColumn(this.position.getColumn() - 1);
-            positionVerifier.setRow(this.position.getRow() - 1);
-         }
-         
-        if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+        }
          
          // diagonal up right
          positionVerifier.setColumn(this.position.getColumn() + 1);
          positionVerifier.setRow(this.position.getRow() - 1);
          
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            positionVerifier.setColumn(this.position.getColumn() + 1);
-            positionVerifier.setRow(this.position.getRow() - 1);
-         }
-         
-        if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+        }
          
         // diagonal bottom left
          positionVerifier.setColumn(this.position.getColumn() - 1);
          positionVerifier.setRow(this.position.getRow() + 1);
          
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            positionVerifier.setColumn(this.position.getColumn() - 1);
-            positionVerifier.setRow(this.position.getRow() + 1);
-         }
-         
-        if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+        }
          
         // diagonal bottom right
         positionVerifier.setColumn(this.position.getColumn() + 1);
         positionVerifier.setRow(this.position.getRow() + 1);
          
-         while(this.getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
+        if(getBoard().positionExists(positionVerifier) && !this.getBoard().thereIsAPiece(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-            
-            positionVerifier.setColumn(this.position.getColumn() + 1);
-            positionVerifier.setRow(this.position.getRow() + 1);
-         }
-         
-        if(this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier)){
-            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
-         }
+        }
          
          return possibleMovesMatrix;
     }

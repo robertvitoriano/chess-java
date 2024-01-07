@@ -34,7 +34,9 @@ public class ChessMatch {
     
     public boolean[][] possibleMoves(ChessPosition sourcePosition){
         Position position = sourcePosition.toPosition();
-        return board.piece(position).possibleMoves();
+        Piece piece = board.piece(position);
+        if(piece  == null) throw new ChessException("there is no piece at this position");
+        return piece.possibleMoves();
         
     }
 
