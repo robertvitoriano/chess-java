@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -9,16 +11,49 @@ public class ChessMatch {
     private Board board;
     private Color currentPlayer;
     private int turn;
+    private ArrayList<Piece> capturedWhitePieces;
+    private ArrayList<Piece> capturedBlackPieces;
+
     private static ChessMatch instance = null;
+
+    /**
+     * @return the capturedWhitePieces
+     */
+    public ArrayList<Piece> getCapturedWhitePieces() {
+        return this.capturedWhitePieces;
+    }
+
+    /**
+     * @param capturedWhitePieces the capturedWhitePieces to set
+     */
+    private void addCapturedWhitePieces(Piece capturedWhitePieces) {
+        this.capturedWhitePieces.add(capturedWhitePieces);
+    }
+
+    /**
+     * @param capturedBlackPieces the capturedBlackPieces to set
+     */
+    private void addCapturedBlackPiece(Piece capturedBlackPiece) {
+        this.capturedBlackPieces.add(capturedBlackPiece);
+    }
+    
+    /**
+     * @return the capturedBlackPieces
+     */
+    public ArrayList<Piece> getCapturedBlackPieces() {
+        return this.capturedBlackPieces;
+    }
 
     private ChessMatch(){
         this.board = new Board(8, 8);
+        capturedWhitePieces = new ArrayList<Piece>(); 
+        capturedBlackPieces = new ArrayList<Piece>();
         this.initialSetup();
     }
 
     public static ChessMatch getInsantance(){
         if(instance == null){
-            return new ChessMatch();
+            instance = new ChessMatch();
         }
         return instance;
     }
@@ -67,6 +102,16 @@ public class ChessMatch {
         Piece capturedPiece = makeMove(source,target);
         this.updateTurn();
         this.updateCurrentPlayer();
+        if(capturedPiece != null){
+            ChessPiece chessPiece = (ChessPiece) capturedPiece;
+            
+            if(chessPiece.getColor() == Color.WHITE){
+                this.addCapturedWhitePieces(chessPiece);
+            } else {
+                this.addCapturedBlackPiece(chessPiece);
+            }
+
+        }
         return (ChessPiece) capturedPiece;
     }
     

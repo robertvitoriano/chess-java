@@ -4,9 +4,10 @@ import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
-
 import java.util.InputMismatchException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import boardgame.Piece;
 
 public class UI {
 
@@ -28,6 +29,8 @@ public class UI {
     public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+    
+    private static ChessMatch chessMatch;
 
     public static ChessPosition readChessPosition(Scanner scanner) {
         try {
@@ -41,6 +44,14 @@ public class UI {
     }
 
     public static void printBoard(ChessPiece[][] pieces) {
+        
+        chessMatch = ChessMatch.getInsantance();
+        
+        if(chessMatch.getCapturedWhitePieces().size() >=1){
+            System.out.println("Captured white pieces:");
+            printPieces(chessMatch.getCapturedWhitePieces(), ANSI_WHITE);
+        }
+        
         for (int i = 0; i < pieces.length; i++) {
             System.out.print((8 - i) + " ");
             for (int j = 0; j < pieces.length; j++) {
@@ -48,10 +59,24 @@ public class UI {
             }
             System.out.println();
         }
+        
         System.out.println("  a b c d e f g h");
+        
+        if(chessMatch.getCapturedBlackPieces().size() >= 1){
+            System.out.println("Captured black pieces:");
+            printPieces(chessMatch.getCapturedBlackPieces(), ANSI_YELLOW);
+        }
     }
 
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+        
+        chessMatch = ChessMatch.getInsantance();
+        
+        if(chessMatch.getCapturedWhitePieces().size() >=1){
+            System.out.println("Captured white pieces:");
+            printPieces(chessMatch.getCapturedWhitePieces(), ANSI_WHITE);
+        }
+        
         for (int i = 0; i < pieces.length; i++) {
             System.out.print((8 - i) + " ");
             for (int j = 0; j < pieces.length; j++) {
@@ -59,15 +84,22 @@ public class UI {
             }
             System.out.println();
         }
+        
         System.out.println("  a b c d e f g h");
+
+        if(chessMatch.getCapturedBlackPieces().size() >= 1){
+            System.out.println("Captured black pieces:");
+            printPieces(chessMatch.getCapturedBlackPieces(), ANSI_YELLOW);
+        }
+        
     }
 
     private static void printPiece(ChessPiece piece, boolean possibleMove) {
-        if(possibleMove){
+        if (possibleMove) {
             System.out.print(ANSI_GREEN_BACKGROUND);
         }
         if (piece == null) {
-            System.out.print("- "+ ANSI_RESET);
+            System.out.print("- " + ANSI_RESET);
         } else {
             if (piece.getColor() == Color.WHITE) {
                 System.out.print(ANSI_WHITE + piece + ANSI_RESET);
@@ -93,18 +125,26 @@ public class UI {
             e.printStackTrace();
         }
     }
-    public static void printMatch(ChessMatch chessMatch){
-        System.out.println("Current turn: " + chessMatch.getTurn());
-        String currentPlayer = chessMatch.getCurrentPlayer() == Color.WHITE ? "White": "Black";
-        System.out.println("Player: "+currentPlayer);
+
+    public static void printMatch(ChessMatch chessMatch) {
+        String currentPlayer = chessMatch.getCurrentPlayer() == Color.WHITE ? "White" : "Black";
+        System.out.println("Player: " + currentPlayer);
     }
-    private static void printPossibleMoves(boolean[][] possibleMoves){
+
+    private static void printPieces(ArrayList<Piece> pieces, String colorCode) {
+        for (int i = 0; i < pieces.size(); i++) {
+            System.out.print(colorCode + pieces.get(i).toString() + ANSI_RESET+" ");
+        }
+        System.out.println();
+    }
+
+    private static void printPossibleMoves(boolean[][] possibleMoves) {
         for (int i = 0; i < possibleMoves.length; i++) {
             System.out.print((8 - i) + " ");
             for (int j = 0; j < possibleMoves.length; j++) {
-                if(possibleMoves[i][j]){
+                if (possibleMoves[i][j]) {
                     System.out.print(" T ");
-                } else{
+                } else {
                     System.out.print(" F ");
                 }
             }
@@ -112,4 +152,5 @@ public class UI {
         }
         System.out.println("  a b c d e f g h");
     }
+
 }
