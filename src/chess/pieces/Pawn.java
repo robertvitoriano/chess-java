@@ -9,10 +9,11 @@ public class Pawn extends ChessPiece {
 
     public Pawn(Board board, Color color) {
         super(board, color);
+        direction = color == Color.WHITE ? -1 : 1;
     }
 
     private int pawnMoves = 0;
-    private int direction = this.getColor() == Color.WHITE ? -1 : 1;
+    private int direction;
 
     @Override
     public String toString() {
