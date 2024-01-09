@@ -31,6 +31,7 @@ public class Pawn extends ChessPiece {
         positionVerifier.setRow(this.position.getRow() + this.direction);
         positionVerifier.setColumn(this.position.getColumn());
         Boolean canMove = !this.getBoard().thereIsAPiece(positionVerifier);
+        
         if (this.pawnMoves > 1) {
             if (this.getBoard().positionExists(positionVerifier) && canMove) {
                 possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
@@ -43,6 +44,18 @@ public class Pawn extends ChessPiece {
             if (this.getBoard().positionExists(positionVerifier) && canMove) {
                 possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
             }
+        }
+        positionVerifier.setRow(this.position.getRow() + this.direction);
+        positionVerifier.setColumn(this.position.getColumn() + 1);
+        canMove = this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier);
+        if(canMove){
+            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
+        }
+        positionVerifier.setRow(this.position.getRow() + this.direction);
+        positionVerifier.setColumn(this.position.getColumn() - 1);
+        canMove = this.getBoard().thereIsAPiece(positionVerifier) && this.isThereOpponentPiece(positionVerifier);
+        if(canMove){
+            possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
         return possibleMovesMatrix;
         
