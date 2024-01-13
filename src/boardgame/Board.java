@@ -1,5 +1,9 @@
 package boardgame;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import chess.ChessPiece;
 import chess.pieces.Pawn;
 
 public class Board {
@@ -7,6 +11,7 @@ public class Board {
     private int rows;
     private int columns;
     private Piece[][] pieces;
+    private List<ChessPiece> chessPiecesList = new ArrayList<>();
 
     public Board(int rows, int columns) {
 
@@ -16,6 +21,7 @@ public class Board {
         this.rows = rows;
         this.columns = columns;
         pieces = new Piece[rows][columns];
+        this.makechessPiecesList();
     }
 
     public int getRows() {
@@ -49,6 +55,7 @@ public class Board {
         if(piece instanceof Pawn){
             ((Pawn) piece).updatePawnMoves();
         }
+        this.makechessPiecesList();
     }
 
     public Piece removePiece(Position position){
@@ -76,4 +83,23 @@ public class Board {
 
         return this.piece(position) != null;
     }
+
+    /**
+     * @return the pieces
+     */
+    private void makechessPiecesList(){
+        List<ChessPiece> newchessPiecesList = new ArrayList<>();
+        for(int i  = 0; i< pieces.length; i++){
+            for (int j = 0; j< pieces[i].length; j++){
+                if( pieces[i][j] != null && this.thereIsAPiece(pieces[i][j].position)){
+                    newchessPiecesList.add((ChessPiece)pieces[i][j]);
+                }
+            }
+        }
+        chessPiecesList = newchessPiecesList;
+        
+    }
+    public List<ChessPiece> getchessPiecesList() {
+        return chessPiecesList;
+    }    
 }

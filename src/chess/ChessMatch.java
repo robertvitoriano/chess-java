@@ -1,6 +1,9 @@
 package chess;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -11,8 +14,23 @@ public class ChessMatch {
     private Board board;
     private Color currentPlayer;
     private int turn;
+    /**
+     * @return the playerInCheckCondition
+     */
+    public Color getPlayerInCheckCondition() {
+        return playerInCheckCondition;
+    }
+
+    /**
+     * @param playerInCheckCondition the playerInCheckCondition to set
+     */
+    public void setPlayerInCheckCondition(Color playerInCheckCondition) {
+        this.playerInCheckCondition = playerInCheckCondition;
+    }
+
     private ArrayList<Piece> capturedWhitePieces;
     private ArrayList<Piece> capturedBlackPieces;
+    private Color playerInCheckCondition;
 
     private static ChessMatch instance = null;
 
@@ -100,6 +118,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source,target);
+        this.handleCheckCondition();
         this.updateTurn();
         this.updateCurrentPlayer();
         if(capturedPiece != null){
@@ -110,10 +129,29 @@ public class ChessMatch {
             } else {
                 this.addCapturedBlackPiece(chessPiece);
             }
-
         }
         return (ChessPiece) capturedPiece;
     }
+    
+    public void handleCheckCondition(){
+        Color opponentColor = currentPlayer == Color.BLACK ? Color.WHITE : Color.BLACK;
+        List<Piece> opponentPieces  = this.board.getchessPiecesList()
+                                                                    .stream()
+                                                                    .filter( piece -> piece.getColor() == opponentColor)
+                                                                    .collect(Collectors.toList());
+        ChessPiece currenPlayerKing  = this.board.getchessPiecesList()
+                                                                    .stream()
+                                                                    .filter( piece -> piece.getColor() == currentPlayer && piece instanceof King)
+                                                                    .collect(Collectors.toList()).get(0);
+        for(int i = 0; i< opponentPieces.size(); i++){
+            if(opponentPieces.get(i).isPossibleMove(currenPlayerKing.getPosition())){
+                playerInCheckCondition = currentPlayer;
+            }
+        }
+        if(playerInCheckCondition != null){
+            System.out.println("YOU ARE CHECKED!!!");
+        }
+    } 
     
     public boolean[][] possibleMoves(ChessPosition sourcePosition){
         Position position = sourcePosition.toPosition();

@@ -16,6 +16,9 @@ public abstract  class ChessPiece extends Piece {
     public Color getColor(){
         return this.color;
     }
+    public Position getPosition(){
+        return this.position;
+    }
 
     protected boolean isThereOpponentPiece(Position position){
         ChessPiece p = (ChessPiece) getBoard().piece(position);

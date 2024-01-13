@@ -18,7 +18,7 @@ public class Program {
         
         while(true){
             try{
-                UI.clearConsole();
+                //UI.clearConsole();
                 UI.printMatch(chessMatch);
                 System.out.println();
                 
@@ -32,7 +32,7 @@ public class Program {
 
                 boolean[][] possibleMoves = chessMatch.possibleMoves(sourcePosition);
                 
-                UI.clearConsole();
+                //UI.clearConsole();
                 
                 UI.printBoard(chessMatch.getPieces(), possibleMoves);
                 
@@ -42,7 +42,7 @@ public class Program {
                 ChessPosition targetPosition = UI.readChessPosition(scanner);
                 
                 chessMatch.performChessMove(sourcePosition, targetPosition);
-                
+                chessMatch.handleCheckCondition();
             }catch (ChessException e){
                 System.out.print(e.getMessage());
                 scanner.nextLine();
