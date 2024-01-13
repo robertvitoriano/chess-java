@@ -27,8 +27,8 @@ public class ChessPosition {
         return new Position(this.column - 'a', Math.abs(this.row - 8));
     }
 
-    protected static ChessPosition fromPosition(Position position){
-        return new ChessPosition(( char )('a' - position.getColumn()),  8 - position.getRow());
+    public static ChessPosition fromPosition(Position position){
+        return new ChessPosition(( char )('a' + position.getColumn()),  8 - position.getRow());
 
     }
 

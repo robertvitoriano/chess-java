@@ -14,6 +14,12 @@ public class ChessMatch {
     private Board board;
     private Color currentPlayer;
     private int turn;
+    private King checkedKing;
+    private ArrayList<Piece> capturedWhitePieces;
+    private ArrayList<Piece> capturedBlackPieces;
+    private Color playerInCheckCondition;
+
+    private static ChessMatch instance = null;
     /**
      * @return the playerInCheckCondition
      */
@@ -28,11 +34,14 @@ public class ChessMatch {
         this.playerInCheckCondition = playerInCheckCondition;
     }
 
-    private ArrayList<Piece> capturedWhitePieces;
-    private ArrayList<Piece> capturedBlackPieces;
-    private Color playerInCheckCondition;
 
-    private static ChessMatch instance = null;
+    /**
+     * @return the checkedKingPossibleMoves
+     */
+    
+    /**
+     * @param checkedKingPossibleMoves the checkedKingPossibleMoves to set
+     */
 
     /**
      * @return the capturedWhitePieces
@@ -130,8 +139,11 @@ public class ChessMatch {
                 this.addCapturedBlackPiece(chessPiece);
             }
         }
+        checkedKing = null;
+        playerInCheckCondition = null;
         return (ChessPiece) capturedPiece;
     }
+    
     
     public void handleCheckCondition(){
         Color opponentColor = currentPlayer == Color.BLACK ? Color.WHITE : Color.BLACK;
@@ -146,13 +158,25 @@ public class ChessMatch {
         for(int i = 0; i< opponentPieces.size(); i++){
             if(opponentPieces.get(i).isPossibleMove(currenPlayerKing.getPosition())){
                 playerInCheckCondition = currentPlayer;
+                this.setCheckedKing((King)currenPlayerKing);
             }
-        }
-        if(playerInCheckCondition != null){
-            System.out.println("YOU ARE CHECKED!!!");
         }
     } 
     
+    /**
+     * @return the checkedKing
+     */
+    public King getCheckedKing() {
+        return checkedKing;
+    }
+
+    /**
+     * @param checkedKing the checkedKing to set
+     */
+    public void setCheckedKing(King checkedKing) {
+        this.checkedKing = checkedKing;
+    }
+
     public boolean[][] possibleMoves(ChessPosition sourcePosition){
         Position position = sourcePosition.toPosition();
         Piece piece = board.piece(position);

@@ -18,23 +18,32 @@ public class Program {
         
         while(true){
             try{
-                //UI.clearConsole();
+                UI.clearConsole();
                 UI.printMatch(chessMatch);
                 System.out.println();
                 
                 UI.printBoard(chessMatch.getPieces());
 
                 System.out.println();
-                System.out.print("Source: ");
-
-                ChessPosition sourcePosition = UI.readChessPosition(scanner);
-                chessMatch.validateSourcePosition(sourcePosition.toPosition());
-
-                boolean[][] possibleMoves = chessMatch.possibleMoves(sourcePosition);
-                
-                //UI.clearConsole();
-                
-                UI.printBoard(chessMatch.getPieces(), possibleMoves);
+                ChessPosition sourcePosition;
+                if(chessMatch.getPlayerInCheckCondition() == null){
+                    System.out.print("Source: ");
+    
+                    sourcePosition = UI.readChessPosition(scanner);
+                    chessMatch.validateSourcePosition(sourcePosition.toPosition());
+    
+                    boolean[][] possibleMoves = chessMatch.possibleMoves(sourcePosition);
+                    
+                    UI.clearConsole();
+                    
+                    UI.printBoard(chessMatch.getPieces(), possibleMoves);
+                } else {
+                    UI.clearConsole();
+                    System.out.println("Watch out! you are checked! You must move the king!");
+                    UI.printBoard(chessMatch.getPieces(), chessMatch.getCheckedKing().possibleMoves());
+                    sourcePosition = ChessPosition.fromPosition( chessMatch.getCheckedKing().getPosition());
+                    chessMatch.validateSourcePosition(sourcePosition.toPosition());
+                }
                 
                 System.out.println();
                 System.out.print("Target: ");

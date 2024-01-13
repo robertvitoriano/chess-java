@@ -27,7 +27,6 @@ public class King  extends ChessPiece {
         //above
         positionVerifier.setRow(this.position.getRow() - 1);
         positionVerifier.setColumn(this.position.getColumn());
-        System.out.println("Row initial position " +!this.getBoard().thereIsAPiece(positionVerifier));
         if(getBoard().positionExists(positionVerifier) && this.canMove(positionVerifier)){
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
