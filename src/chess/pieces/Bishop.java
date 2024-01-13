@@ -19,7 +19,6 @@ public class Bishop extends ChessPiece {
     public boolean[][] possibleMoves() {
         boolean[][] possibleMovesMatrix = new boolean[8][8];
         Position positionVerifier = new Position(0, 0);
-        boolean canMove = false;
 
         // up right
         positionVerifier.setColumn(this.position.getColumn() + 1);
