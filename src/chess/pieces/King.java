@@ -32,8 +32,6 @@ public class King  extends ChessPiece {
             possibleMovesMatrix[positionVerifier.getRow()][positionVerifier.getColumn()] = true;
         }
          
-
-         
          //bottom
         positionVerifier.setRow(this.position.getRow() + 1);
         positionVerifier.setColumn(this.position.getColumn());		
